@@ -1,8 +1,4 @@
 import React, { useState, useEffect } from 'react'
-// import logo from './logo.svg'
-
-import '../styles/bootstrap.min.css'
-import '../App.css'
 
 import MoviesList from '../components/MoviesList'
 
@@ -48,14 +44,17 @@ const Welcome = () => {
 
   return (
     <div>
-      <button onClick={init}>Click me</button>
+      {/* <button onClick={init}>Click me</button> */}
       
       <MoviesList 
-        title="Popular movies"
+        title="Popular Movies"
         movies={popularMovies}
       />
 
-
+      <MoviesList 
+        title="Popular Series"
+        movies={popularMovies}
+      />
     </div>
   )
 }
