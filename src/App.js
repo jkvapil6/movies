@@ -4,16 +4,18 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Welcome from './pages/welcome'
 import Search from './pages/search'
 import Movie from './pages/movie'
+import Serie from './pages/movie'
 
 import Layout from './components/Layout'
 import Header from './components/Header'
 import Footer from './components/Footer'
 
 import './styles/bootstrap.min.css'
-import './App.css'
 
+///
+/// App Main Component 
+///
 const App = () => {
-
   return (
     <Router>
       <div className="App">
@@ -27,6 +29,8 @@ const App = () => {
             <Route exact path='/search/' component={ Welcome }/>
             
             {/* <Route path='/movie' component={ Movie }/> */}
+
+            <Route exact path='/serie/:id' component={ Serie }/>
             <Route exact path='/movie/:id' component={ Movie }/>
           </Switch>
         </Layout>

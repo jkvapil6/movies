@@ -39,9 +39,14 @@ const Movie = ({ match }) => {
     }
     
     setMovie(data)
+
     setGenres(data.genres)
     setReleaseDate(data.release_date)
+
+    console.log(releaseDate)
+
     setTitle(data.title)
+    
   }
 
   /////////////////////////////////////////////
@@ -51,15 +56,15 @@ const Movie = ({ match }) => {
   ///
   const fetchMovie = async (id) => {
 
-     fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&language=en-US&page=1`)
-    .then(response => response.json())
-    .then(data => parseMovieInfo(data))
+     fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${api_key}&language=en-US&page=1`)
+      .then(response => response.json())
+      .then(data => parseMovieInfo(data))
   }
 
   /////////////////////////////////////////////
 
   ///
-  /// Test fn
+  /// Test function
   ///
   const show = () => {
     // console.log(genres)
@@ -82,45 +87,31 @@ const Movie = ({ match }) => {
 
   if (movie && !movie.status_code) {
     movieInfo = (     
-      <div>  
-        
+      <div>
         <h2>({ releaseDate.split('-')[0] })</h2>
-                
-        <div style={{display: 'flex'}}>
-          <div> 
-            <img 
-              style={{width: 300, display: 'block', padding: 10}} 
-              src={`http://image.tmdb.org/t/p/w300//`.concat(movie.poster_path)} 
-              alt="movie card" 
-            />
-          </div>
+        <img 
+          style={{width: 185, display: 'block', padding: 10}} 
+          src={`http://image.tmdb.org/t/p/w185//`.concat(movie.poster_path)} 
+          alt="movie card" 
+        />
 
-          <div style={{marginLeft: "5%"}}>
-            <hr className="my-3" />
+        <GenresList genres={genres} />
+        
+        <p>{ movie.overview }</p>
 
-            <h3>Genres</h3>
-            <GenresList genres={genres} />
-            <hr className="my-3" />
+        <TrailerModal
+          title={ title }
+          show={ showVideo }
+          handleClose={() => setShowVideo(false)}
+          src={"https://www.youtube.com/embed/zpOULjyy-n8?rel=0"} 
+        />
 
-            <h3>Overview</h3>
-            <p class="lead">{ movie.overview }</p>
+        <button 
+          className="btn btn-secondary my-2 my-sm-0" 
+          type="submit"
+          onClick={() => setShowVideo(true)}
+        > Play Trailer </button>
 
-            <hr className="my-3" />
-
-            <TrailerModal
-              title={ title }
-              show={ showVideo }
-              handleClose={() => setShowVideo(false)}
-              src={"https://www.youtube.com/embed/zpOULjyy-n8?rel=0"} 
-            />
-
-            <button 
-              className="btn btn-secondary my-2 my-sm-0" 
-              type="submit"
-              onClick={() => setShowVideo(true)}
-            > Play Trailer </button>
-          </div>
-        </div>
       </div>
     )
   }
@@ -129,11 +120,12 @@ const Movie = ({ match }) => {
 
   return (
     <div style={ styles }>
+      <h1>TODO..</h1>
       <h1>{ title }</h1> 
       
       { movieInfo }
 
-      {/* <button onClick={show}>Show</button> */}
+      <button onClick={show}>Show</button>
     </div>
   )
 }

@@ -1,5 +1,8 @@
 import React from 'react'
 
+///
+/// Layout Component
+///
 const Layout = (props) => {
 
   const styles = {
