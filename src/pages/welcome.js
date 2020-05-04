@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react'
 
 import MoviesList from '../components/MoviesList'
 
-const Record = require('../model/Record')
+import Record from '../model/Record'
 
 const api_key = '8da605a5d9396912aa1f7532d10a9839'
 
@@ -104,7 +104,7 @@ const Welcome = () => {
 
   return (
     <div>
-      <button onClick={init}>Click me</button>
+      {/* <button onClick={init}>Click me</button> */}
 
       <MoviesList 
         type="Movies" 

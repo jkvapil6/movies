@@ -1,5 +1,7 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+// import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Welcome from './pages/welcome'
 import Search from './pages/search'
@@ -17,7 +19,7 @@ import './styles/bootstrap.min.css'
 ///
 const App = () => {
   return (
-    <Router>
+    <Router basename="/">
       <div className="App">
         <Header />
 
