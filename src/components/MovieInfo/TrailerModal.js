@@ -22,7 +22,7 @@ const TrailerModal = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>
-            Back
+            Close
           </Button>
         </Modal.Footer>
       </Modal>

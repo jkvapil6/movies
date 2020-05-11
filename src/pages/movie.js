@@ -52,19 +52,8 @@ const Movie = ({ match }) => {
   const fetchMovie = async (id) => {
 
      fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=${api_key}&language=en-US&page=1`)
-    .then(response => response.json())
-    .then(data => parseMovieInfo(data))
-  }
-
-  /////////////////////////////////////////////
-
-  ///
-  /// Test fn
-  ///
-  const show = () => {
-    // console.log(genres)
-    // console.log(releaseDate)
-    console.log(movie)
+      .then(response => response.json())
+      .then(data => parseMovieInfo(data))
   }
 
   /////////////////////////////////////////////
@@ -78,24 +67,27 @@ const Movie = ({ match }) => {
 
   /////////////////////////////////////////////
 
-  let movieInfo = <div></div>
+  let movieInfo = <div>Cannot load this movie</div>
 
   if (movie && !movie.status_code) {
     movieInfo = (     
-      <div>  
-        
-        <h2>({ releaseDate.split('-')[0] })</h2>
-                
-        <div style={{display: 'flex'}}>
-          <div> 
+      <div>          
+        <div className="movie-info">
+          <div className="movie-info-logo">  
             <img 
-              style={{width: 300, display: 'block', padding: 10}} 
-              src={`http://image.tmdb.org/t/p/w300//`.concat(movie.poster_path)} 
+              src={`http://image.tmdb.org/t/p/w500//`.concat(movie.poster_path)} 
               alt="movie card" 
             />
           </div>
 
-          <div style={{marginLeft: "5%"}}>
+          <div className="movie-info-content">
+
+           <h1 className="display-4">{
+              title.concat(" (")
+                .concat(releaseDate.split('-')[0])
+                .concat(")")}
+            </h1> 
+              
             <hr className="my-3" />
 
             <h3>Genres</h3>
@@ -103,7 +95,7 @@ const Movie = ({ match }) => {
             <hr className="my-3" />
 
             <h3>Overview</h3>
-            <p class="lead">{ movie.overview }</p>
+            <p className="lead">{ movie.overview }</p>
 
             <hr className="my-3" />
 
@@ -128,12 +120,8 @@ const Movie = ({ match }) => {
   /////////////////////////////////////////////
 
   return (
-    <div style={ styles }>
-      <h1>{ title }</h1> 
-      
+    <div style={ styles }>  
       { movieInfo }
-
-      {/* <button onClick={show}>Show</button> */}
     </div>
   )
 }

@@ -15,9 +15,7 @@ const Header = () => {
 
   return (
     <header className="App-header">
-
         <nav className="navbar navbar-expand-lg navbar-dark bg-primary" style={styles}>
-          
           <Link to="/" className="navbar-brand">Movies Database</Link>
 
           <div className="navbar-collapse">

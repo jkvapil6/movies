@@ -15,18 +15,18 @@ const MoviesList = (props) => {
     margin: 10
   }
 
-  let moviesList
+  let moviesList = <div></div>
 
-  if (props.movies.length > 0) {
+  if (props.movies && props.movies.length > 0) {
 
     moviesList = props.movies.map(m => (
       <div key={ m.id } className="card mb-3" style={ styles }>
-        <Link to={props === "movie" ? `/movie/${ m.id }` : `/serie/${ m.id }` }>
+        <Link to={props.type === "Movies" ? `/movie/${ m.id }` : `/serie/${ m.id }` }>
           <h5 className="card-header">
             { m.title.length < 16 ? m.title : m.title.slice(0, 13).concat('...') }
           </h5>
         </Link>
-        <Link to={`/movie/${ m.id }`}>
+        <Link to={props.type === "Movies" ? `/movie/${ m.id }` : `/serie/${ m.id }` }>
         <img 
           style={{width:'100%', margin: 'auto', maxWidth: 250, height: 288, display: 'block', padding: 10}} 
           src={`http://image.tmdb.org/t/p/w300//`.concat(m.poster_path)} 
@@ -35,10 +35,8 @@ const MoviesList = (props) => {
         </Link>
       </div>
     ))
-
-  } else {
-    moviesList = <h2>Did not find any movies :(</h2>
   }
+  
 
   /////////////////////////////////////////////
 
@@ -92,8 +90,8 @@ const MoviesList = (props) => {
 
   return (
     <div>
-      <h1 className="display-3">{ props.title }</h1>
-      <hr className="my-3" />
+      <h1 className="display-4">{ props.title }</h1>
+      <hr className="my-2" />
       <Slider {...settings}>
        { moviesList }
       </Slider>

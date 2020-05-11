@@ -6,7 +6,7 @@ import { HashRouter as Router, Switch, Route } from 'react-router-dom'
 import Welcome from './pages/welcome'
 import Search from './pages/search'
 import Movie from './pages/movie'
-import Serie from './pages/movie'
+import Serie from './pages/serie'
 
 import Layout from './components/Layout'
 import Header from './components/Header'
@@ -27,11 +27,7 @@ const App = () => {
           <Switch>
             <Route exact path='/' component={ Welcome }/>
             <Route exact path='/search/:input' component={ Search }/>
-
             <Route exact path='/search/' component={ Welcome }/>
-            
-            {/* <Route path='/movie' component={ Movie }/> */}
-
             <Route exact path='/serie/:id' component={ Serie }/>
             <Route exact path='/movie/:id' component={ Movie }/>
           </Switch>

@@ -8,7 +8,7 @@ const api_key = '8da605a5d9396912aa1f7532d10a9839'
 ///
 /// Component displays movie detail
 ///
-const Movie = ({ match }) => {
+const Serie = ({ match }) => {
 
   /// DATA
   const [movie, setMovie] = useState(null)
@@ -28,9 +28,9 @@ const Movie = ({ match }) => {
   /////////////////////////////////////////////
 
   ///
-  /// Parses movie info from loaded data
+  /// Parses serie info from loaded data
   ///
-  const parseMovieInfo = (data) => {
+  const parseSerieInfo = (data) => {
 
     if (data.status_code) {
       console.error(data.status_message)
@@ -39,13 +39,9 @@ const Movie = ({ match }) => {
     }
     
     setMovie(data)
-
     setGenres(data.genres)
-    setReleaseDate(data.release_date)
-
-    console.log(releaseDate)
-
-    setTitle(data.title)
+    setReleaseDate(data.first_air_date)
+    setTitle(data.name)
     
   }
 
@@ -55,63 +51,59 @@ const Movie = ({ match }) => {
   /// Loads movie info by id
   ///
   const fetchMovie = async (id) => {
-
      fetch(`https://api.themoviedb.org/3/tv/${id}?api_key=${api_key}&language=en-US&page=1`)
       .then(response => response.json())
-      .then(data => parseMovieInfo(data))
+      .then(data => parseSerieInfo(data))
   }
 
   /////////////////////////////////////////////
-
-  ///
-  /// Test function
-  ///
-  const show = () => {
-    // console.log(genres)
-    // console.log(releaseDate)
-    console.log(movie)
-  }
-
-  /////////////////////////////////////////////
-  /////////////////////////////////////////////
-
-  const styles = {
-    width: '100%', 
-    float: 'left', 
-    margin: 10
-  }
-
   /////////////////////////////////////////////
 
   let movieInfo = <div></div>
 
   if (movie && !movie.status_code) {
     movieInfo = (     
-      <div>
-        <h2>({ releaseDate.split('-')[0] })</h2>
-        <img 
-          style={{width: 185, display: 'block', padding: 10}} 
-          src={`http://image.tmdb.org/t/p/w185//`.concat(movie.poster_path)} 
-          alt="movie card" 
-        />
+      <div>                
+        <div className="movie-info">
+          <div className="movie-info-logo"> 
+            <img 
+              src={`http://image.tmdb.org/t/p/w500//`.concat(movie.poster_path)} 
+              alt="movie card" 
+            />
+          </div>
 
-        <GenresList genres={genres} />
-        
-        <p>{ movie.overview }</p>
+          <div className="movie-info-content">
+            <h1 className="display-4">{
+              title.concat(" (")
+                .concat(releaseDate.split('-')[0])
+                .concat(")")}
+            </h1> 
+                
+            <hr className="my-3" />
 
-        <TrailerModal
-          title={ title }
-          show={ showVideo }
-          handleClose={() => setShowVideo(false)}
-          src={"https://www.youtube.com/embed/zpOULjyy-n8?rel=0"} 
-        />
+            <h3>Genres</h3>
+            <GenresList genres={genres} />
+            <hr className="my-3" />
 
-        <button 
-          className="btn btn-secondary my-2 my-sm-0" 
-          type="submit"
-          onClick={() => setShowVideo(true)}
-        > Play Trailer </button>
+            <h3>Overview</h3>
+            <p className="lead">{ movie.overview }</p>
 
+            <hr className="my-3" />
+
+            <TrailerModal
+              title={ title }
+              show={ showVideo }
+              handleClose={() => setShowVideo(false)}
+              src={"https://www.youtube.com/embed/zpOULjyy-n8?rel=0"} 
+            />
+
+            <button 
+              className="btn btn-secondary my-2 my-sm-0" 
+              type="submit"
+              onClick={() => setShowVideo(true)}
+            > Play Trailer </button>
+          </div>
+        </div>
       </div>
     )
   }
@@ -119,15 +111,10 @@ const Movie = ({ match }) => {
   /////////////////////////////////////////////
 
   return (
-    <div style={ styles }>
-      <h1>TODO..</h1>
-      <h1>{ title }</h1> 
-      
+    <div>
       { movieInfo }
-
-      <button onClick={show}>Show</button>
     </div>
   )
 }
 
-export default Movie
+export default Serie
